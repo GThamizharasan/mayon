@@ -14,13 +14,14 @@ class LoginPageBloc extends Bloc<LoginPageEvent, LoginPageState> {
 
   @override
   void onTransition(Transition<LoginPageEvent, LoginPageState> transition) {
-    print(transition);
+    //print(transition);
     super.onTransition(transition);
   }
 
   @override
   Stream<LoginPageState> mapEventToState(LoginPageEvent event) async* {
     if (event is EmailChanged) {
+      //print(event.email);
       final email = Email.dirty(event.email);
       yield state.copyWith(
         email: email.valid ? email : Email.pure(event.email),

@@ -1,18 +1,22 @@
-//import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:mayon/bloc/login/login_page_bloc.dart';
-import 'package:mayon/view/MyHomePage.dart';
+import 'package:mayon/screens/homepage/MyHomePage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mayon/services/appmetadata.dart';
 
 class LoginApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: const Text('Mayon.in')),
+        appBar: AppBar(
+          title: Text(AppMetaData.apptitle,
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold)),
+        ),
         body: BlocProvider(
           create: (_) => LoginPageBloc(),
           child: LoginPage(),
@@ -123,6 +127,7 @@ class EmailInput extends StatelessWidget {
           ),
           keyboardType: TextInputType.emailAddress,
           onChanged: (value) {
+            //print(value);
             context.read<LoginPageBloc>().add(EmailChanged(email: value));
           },
           textInputAction: TextInputAction.next,
@@ -155,7 +160,7 @@ class PasswordInput extends StatelessWidget {
                 ? '''Min 8 and Max 15 Chars, at least one uppercase, one lowercase, one number and one special char '''
                 : null,
           ),
-          obscureText: true,
+          obscureText: false,
           onChanged: (value) {
             context.read<LoginPageBloc>().add(PasswordChanged(password: value));
           },
@@ -164,6 +169,7 @@ class PasswordInput extends StatelessWidget {
       },
     );
   }
+
 }
 
 class SubmitButton extends StatelessWidget {
